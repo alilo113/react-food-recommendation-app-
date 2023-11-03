@@ -1,21 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function Chatwindow({ messages }) {
     const [food, setFoodData] = useState(null);
 
-    async function fetch(e){
-        try {
+    useEffect(() => {
+        async function fetchFoodData() {
+          try {
             const url = "https://www.themealdb.com/api/json/v1/1/random.php";
             const res = await fetch(url);
-            const data = await res.json()
-            setFoodData(data)
-            console.log(data)
-        } catch (error) {
-            console.log(error)
+            const data = await res.json();
+            if (data.meals && data.meals.length > 0) {
+                console.log('Needed Data:', data.meals[0].strMeal);
+                setFoodData(data.meals[0].strMeal); // Setting fetched data in state
+              } else {
+                console.log('No data found.');
+                setFoodData(null); // Set the state to null if no data is found
+              }
+          } catch (error) {
+            console.log(error);
+          }
         }
-    }
-
-    fetch();
+        
+        fetchFoodData();
+      }, []); 
     
     return (
       <div id="chat-window" className="chat-window">
