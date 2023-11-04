@@ -7,7 +7,7 @@ The Food Suggestion Chat Bot is an interactive application built using React. It
 ## Usage
 
 The chat bot responds differently according to the user's input:
-- **"Yes":** The bot provides a food recommendation based on the user's preferences.
+- **"Yes":** The bot provides a food random recommendations.
 - **"Another":** The bot suggests something else.
 - **"No":** Specifically, if the user types "no," the bot responds with "Ok, let me know if you change your mind."
 
