@@ -1,28 +1,32 @@
-import { Chatwindow } from "./chatwindow";
 import { useState } from "react";
+import { Chatwindow } from "./chatwindow";
 
 export function Chatform() {
   const [userInput, setUserInput] = useState("");
-  const [messages, setMessages] = useState([]); // Initialize as an array
+  const [response, setResponse] = useState([]);
 
-  function handleUserInput(event) {
-    event.preventDefault();
+  function addRes(e) {
+    e.preventDefault();
 
-    if (userInput.toLowerCase() === "yes") {
-      setMessages((currentMessages) => [
-        ...currentMessages,
-        {
-          messageValue: userInput,
-        },
-      ]);
+    // Assuming 'userInput' is the message entered by the user
+    const userMessage = userInput.trim(); // Trim any extra spaces
+
+    if (userMessage.toLowerCase() === "yes") {
+      const newMessage = {
+        id: crypto.randomUUID(),
+        message: userMessage,
+      };
+
+      setResponse(prevResponse => [...prevResponse, newMessage]);
     }
+
     setUserInput("");
   }
 
   return (
     <div>
-      <Chatwindow messages={messages} />
-      <form onSubmit={handleUserInput}>
+      <Chatwindow response={response} />
+      <form onSubmit={addRes}>
         <input
           type="text"
           name="userInput"
